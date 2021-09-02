@@ -5,27 +5,20 @@ import java.util.List;
 
 @Entity
 @Table
-public class Caisse {
+public class TresorerieCategorie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(unique = true , nullable = false)
-    private int uid;
     private String designation;
-    private double soldeDepart;
-    private double solde;
-    @OneToMany(mappedBy = "caisse")
+    @OneToMany(mappedBy = "categorie")
     private List<Tresorerie> tresorerieList;
 
-    public Caisse() {
+    public TresorerieCategorie() {
     }
 
-    public Caisse(int id, int uid, String designation, double soldeDepart, double solde, List<Tresorerie> tresorerieList) {
+    public TresorerieCategorie(int id, String designation, List<Tresorerie> tresorerieList) {
         this.id = id;
-        this.uid = uid;
         this.designation = designation;
-        this.soldeDepart = soldeDepart;
-        this.solde = solde;
         this.tresorerieList = tresorerieList;
     }
 
@@ -37,36 +30,12 @@ public class Caisse {
         this.id = id;
     }
 
-    public int getUid() {
-        return uid;
-    }
-
-    public void setUid(int uid) {
-        this.uid = uid;
-    }
-
     public String getDesignation() {
         return designation;
     }
 
     public void setDesignation(String designation) {
         this.designation = designation;
-    }
-
-    public double getSoldeDepart() {
-        return soldeDepart;
-    }
-
-    public void setSoldeDepart(double soldeDepart) {
-        this.soldeDepart = soldeDepart;
-    }
-
-    public double getSolde() {
-        return solde;
-    }
-
-    public void setSolde(double solde) {
-        this.solde = solde;
     }
 
     public List<Tresorerie> getTresorerieList() {
@@ -79,12 +48,9 @@ public class Caisse {
 
     @Override
     public String toString() {
-        return "Caisse{" +
+        return "TresorerieCategorie{" +
                 "id=" + id +
-                ", uid=" + uid +
                 ", designation='" + designation + '\'' +
-                ", soldeDepart=" + soldeDepart +
-                ", solde=" + solde +
                 ", tresorerieList=" + tresorerieList +
                 '}';
     }

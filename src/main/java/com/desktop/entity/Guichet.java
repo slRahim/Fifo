@@ -1,36 +1,36 @@
 package com.desktop.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
 public class Guichet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private int id ;
-    @Column(
-            unique = true
-    )
-    private int uid ;
-    @Column
-    private String designation ;
-    @Column
-    private String numero ;
-    @Column
-    private String statut ;
-    @Column
-    private int employeeId ;
+    private int id;
+    @Column(unique = true , nullable = false)
+    private int uid;
+    private String designation;
+    private String numero;
+    private String statut;
+    @OneToOne
+    @JoinColumn(name = "employeeId" , nullable = false)
+    private Employee employee;
+    @OneToMany(mappedBy = "guichet")
+    private List<Ticket> ticketList;
 
     public Guichet() {
     }
 
-    public Guichet(int id, String designation, String numero, String statut, int employeeId) {
+    public Guichet(int id, int uid, String designation, String numero, String statut, Employee employee, List<Ticket> ticketList) {
         this.id = id;
+        this.uid = uid;
         this.designation = designation;
         this.numero = numero;
         this.statut = statut;
-        this.employeeId = employeeId;
+        this.employee = employee;
+        this.ticketList = ticketList;
     }
 
     public int getId() {
@@ -39,6 +39,14 @@ public class Guichet {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
     public String getDesignation() {
@@ -65,22 +73,32 @@ public class Guichet {
         this.statut = statut;
     }
 
-    public int getEmployeeId() {
-        return employeeId;
+    public Employee getEmployee() {
+        return employee;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public List<Ticket> getTicketList() {
+        return ticketList;
+    }
+
+    public void setTicketList(List<Ticket> ticketList) {
+        this.ticketList = ticketList;
     }
 
     @Override
     public String toString() {
         return "Guichet{" +
                 "id=" + id +
+                ", uid=" + uid +
                 ", designation='" + designation + '\'' +
                 ", numero='" + numero + '\'' +
                 ", statut='" + statut + '\'' +
-                ", employeeId=" + employeeId +
+                ", employee=" + employee +
+                ", ticketList=" + ticketList +
                 '}';
     }
 }

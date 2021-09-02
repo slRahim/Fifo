@@ -1,53 +1,51 @@
 package com.desktop.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private int id ;
-    @Column
-    private String nom ;
-    @Column(
-            unique = true
-    )
-    private String username ;
-    @Column
-    private String password ;
-    @Column
-    private String type ;
-    @Column
-    private int addTresorerie ;
-    @Column
-    private int editTresorerie ;
-    @Column
-    private int dellTresorerie ;
-    @Column
-    private int crudUsers ;
-    @Column
-    private int crudClients ;
-    @Column
-    private int crudEmployee ;
-    @Column
-    private int crudCaisse ;
-    @Column
-    private int consulteRapport ;
-    @Column
-    private int consulteDashboard ;
-
+    private int id;
+    private String nom;
+    @Column(unique = true , nullable = false)
+    private String username;
+    @Column(nullable = false)
+    private String password;
+    private String type;
+    @OneToMany(mappedBy = "user")
+    private List<Tresorerie> tresorerieList;
+    @Column(nullable = false , columnDefinition = "int default 0")
+    private int addTresorerie;
+    @Column(nullable = false , columnDefinition = "int default 0")
+    private int editTresorerie;
+    @Column(nullable = false , columnDefinition = "int default 0")
+    private int dellTresorerie;
+    @Column(nullable = false , columnDefinition = "int default 0")
+    private int crudUsers;
+    @Column(nullable = false , columnDefinition = "int default 0")
+    private int crudClients;
+    @Column(nullable = false , columnDefinition = "int default 0")
+    private int crudEmployee;
+    @Column(nullable = false , columnDefinition = "int default 0")
+    private int crudCaisse;
+    @Column(nullable = false , columnDefinition = "int default 0")
+    private int consulteRapport;
+    @Column(nullable = false , columnDefinition = "int default 0")
+    private int consulteDashboard;
 
     public User() {
     }
 
-    public User(int id, String nom, String username, String password, String type, int addTresorerie, int editTresorerie, int dellTresorerie, int crudUsers, int crudClients, int crudEmployee, int crudCaisse, int consulteRapport, int consulteDashboard) {
+    public User(int id, String nom, String username, String password, String type, List<Tresorerie> tresorerieList, int addTresorerie, int editTresorerie, int dellTresorerie, int crudUsers, int crudClients, int crudEmployee, int crudCaisse, int consulteRapport, int consulteDashboard) {
         this.id = id;
         this.nom = nom;
         this.username = username;
         this.password = password;
         this.type = type;
+        this.tresorerieList = tresorerieList;
         this.addTresorerie = addTresorerie;
         this.editTresorerie = editTresorerie;
         this.dellTresorerie = dellTresorerie;
@@ -189,5 +187,13 @@ public class User {
                 ", consulteRapport=" + consulteRapport +
                 ", consulteDashboard=" + consulteDashboard +
                 '}';
+    }
+
+    public List<Tresorerie> getTresorerieList() {
+        return tresorerieList;
+    }
+
+    public void setTresorerieList(List<Tresorerie> tresorerieList) {
+        this.tresorerieList = tresorerieList;
     }
 }

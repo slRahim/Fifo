@@ -9,37 +9,28 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private int id ;
-    @Column(
-            unique = true
-    )
-    private int uid ;
-    @Column
-    private String nom ;
-    @Column
-    private String adresse ;
-    @Column
-    private String ville ;
-    @Column
-    private String telephone ;
-    @Column
-    private String mobile ;
-    @Column
-    private String role ;
-    @Column
-    private Date dateRecrutement ;
-    @Column
-    private Date datePayment ;
-    @Column
-    private double salaire ;
-    @Column
-    private double acompte ;
+    private int id;
+    @Column(unique = true , nullable = false)
+    private int uid;
+    private String nom;
+    private String adresse;
+    private String ville;
+    private String telephone;
+    private String mobile;
+    private String role;
+    private Date dateRecrutement;
+    private Date datePayment;
+    private double salaire;
+    private double acompte;
+    @OneToOne(mappedBy = "employee")
+    private Guichet guichet ;
 
     public Employee() {
     }
 
-    public Employee(int id, String nom, String adresse, String ville, String telephone, String mobile, String role, Date dateRecrutement, Date datePayment, double salaire, double acompte) {
+    public Employee(int id, int uid, String nom, String adresse, String ville, String telephone, String mobile, String role, Date dateRecrutement, Date datePayment, double salaire, double acompte, Guichet guichet) {
         this.id = id;
+        this.uid = uid;
         this.nom = nom;
         this.adresse = adresse;
         this.ville = ville;
@@ -50,6 +41,7 @@ public class Employee {
         this.datePayment = datePayment;
         this.salaire = salaire;
         this.acompte = acompte;
+        this.guichet = guichet;
     }
 
     public int getId() {
@@ -58,6 +50,14 @@ public class Employee {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
     public String getNom() {
@@ -140,10 +140,19 @@ public class Employee {
         this.acompte = acompte;
     }
 
+    public Guichet getGuichet() {
+        return guichet;
+    }
+
+    public void setGuichet(Guichet guichet) {
+        this.guichet = guichet;
+    }
+
     @Override
     public String toString() {
         return "Employee{" +
                 "id=" + id +
+                ", uid=" + uid +
                 ", nom='" + nom + '\'' +
                 ", adresse='" + adresse + '\'' +
                 ", ville='" + ville + '\'' +
@@ -154,6 +163,7 @@ public class Employee {
                 ", datePayment=" + datePayment +
                 ", salaire=" + salaire +
                 ", acompte=" + acompte +
+                ", guichet=" + guichet +
                 '}';
     }
 }

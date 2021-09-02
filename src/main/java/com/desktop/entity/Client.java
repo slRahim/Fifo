@@ -1,46 +1,39 @@
 package com.desktop.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private int id ;
-    @Column(
-            unique = true
-    )
-    private int uid ;
-    @Column
-    private String nom ;
-    @Column
-    private String adresse ;
-    @Column
-    private String mobile ;
-    @Column
-    private String telephone ;
-    @Column
-    private String email ;
-    @Column
-    private String facebook ;
-    @Column
-    private int pointFidelite ;
-    @Column
-    private double soldeDepart ;
-    @Column
-    private double chiffreAffaire ;
-    @Column
-    private double regle ;
-    @Column
-    private double credit ;
+    private int id;
+    @Column(unique = true , nullable = false)
+    private int uid;
+    private String nom;
+    private String adresse;
+    private String mobile;
+    private String telephone;
+    private String email;
+    private String facebook;
+    private int pointFidelite;
+    private double soldeDepart;
+    private double chiffreAffaire;
+    private double regle;
+    private double credit;
+    @OneToMany(mappedBy = "client")
+    private List<Ticket> ticketList ;
+    @OneToMany(mappedBy = "client")
+    private List<Tresorerie> tresorerieList;
+
 
     public Client() {
     }
 
-    public Client(int id, String nom, String adresse, String mobile, String telephone, String email, String facebook, int pointFidelite, double soldeDepart, double chiffreAffaire, double regle, double credit) {
+    public Client(int id, int uid, String nom, String adresse, String mobile, String telephone, String email, String facebook, int pointFidelite, double soldeDepart, double chiffreAffaire, double regle, double credit, List<Ticket> ticketList, List<Tresorerie> tresorerieList) {
         this.id = id;
+        this.uid = uid;
         this.nom = nom;
         this.adresse = adresse;
         this.mobile = mobile;
@@ -52,6 +45,8 @@ public class Client {
         this.chiffreAffaire = chiffreAffaire;
         this.regle = regle;
         this.credit = credit;
+        this.ticketList = ticketList;
+        this.tresorerieList = tresorerieList;
     }
 
     public int getId() {
@@ -60,6 +55,14 @@ public class Client {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
     }
 
     public String getNom() {
@@ -150,10 +153,27 @@ public class Client {
         this.credit = credit;
     }
 
+    public List<Ticket> getTicketList() {
+        return ticketList;
+    }
+
+    public void setTicketList(List<Ticket> ticketList) {
+        this.ticketList = ticketList;
+    }
+
+    public List<Tresorerie> getTresorerieList() {
+        return tresorerieList;
+    }
+
+    public void setTresorerieList(List<Tresorerie> tresorerieList) {
+        this.tresorerieList = tresorerieList;
+    }
+
     @Override
     public String toString() {
         return "Client{" +
                 "id=" + id +
+                ", uid=" + uid +
                 ", nom='" + nom + '\'' +
                 ", adresse='" + adresse + '\'' +
                 ", mobile='" + mobile + '\'' +
@@ -165,6 +185,8 @@ public class Client {
                 ", chiffreAffaire=" + chiffreAffaire +
                 ", regle=" + regle +
                 ", credit=" + credit +
+                ", ticketList=" + ticketList +
+                ", tresorerieList=" + tresorerieList +
                 '}';
     }
 }

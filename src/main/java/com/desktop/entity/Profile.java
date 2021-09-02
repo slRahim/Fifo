@@ -7,41 +7,23 @@ import javax.persistence.*;
 public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private int id ;
-    @Column
     private String raisonSocial ;
-    @Column
     private String type ;
-    @Column
     private String telephone ;
-    @Column
     private String mobile ;
-    @Column
     private String fax ;
-    @Column
     private String email ;
-    @Column
     private String siteWeb ;
-    @Column
     private String adresse ;
-    @Column
     private String ville ;
-    @Column
     private String departement ;
-    @Column
     private String pays ;
-    @Column
     private String rc ;
-    @Column
     private String ntva ;
-    @Column
     private String nis ;
-    @Column
     private String ai ;
-    @Column
     private String capitaleSociale ;
-    @Column
     private String logo ;
 
 

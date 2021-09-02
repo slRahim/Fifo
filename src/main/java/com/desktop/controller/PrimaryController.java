@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import com.desktop.repository.DaoFactory;
 import com.desktop.repository.UserDao;
+import com.desktop.stage.HomeScreen;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
@@ -22,7 +23,7 @@ public class PrimaryController implements Initializable {
     @FXML
     private void switchToSecondary() throws IOException {
         System.out.println("click");
-//        HomeScreen.setRoot("secondary");
-        userDao.getUser(1);
+        HomeScreen.setRoot("secondary");
+//        userDao.getUser(1);
     }
 }

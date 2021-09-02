@@ -2,40 +2,40 @@ package com.desktop.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private int id ;
-    @Column(
-            unique = true
-    )
-    private int uid ;
-    @Column
-    private int numeroTicket ;
-    @Column
-    private Date date ;
-    @Column
-    private int guichetId ;
-    @Column
-    private Date guichetNumero ;
-    @Column
-    private String statut ;
+    private int id;
+    @Column(unique = true)
+    private int uid;
+    private int numeroTicket;
+    private Date date;
+    @ManyToOne
+    @JoinColumn(name = "clientId", nullable = true)
+    private Client client ;
+    @ManyToOne
+    @JoinColumn(name = "guichetId", nullable = false)
+    private Guichet guichet;
+    private String statut;
+    @OneToMany(mappedBy = "ticket")
+    private List<Tresorerie> tresorerieList;
 
     public Ticket() {
     }
 
-    public Ticket(int id, int uid, int numeroTicket, Date date, int guichetId, Date guichetNumero, String statut) {
+    public Ticket(int id, int uid, int numeroTicket, Date date, Client client, Guichet guichet, String statut, List<Tresorerie> tresorerieList) {
         this.id = id;
         this.uid = uid;
         this.numeroTicket = numeroTicket;
         this.date = date;
-        this.guichetId = guichetId;
-        this.guichetNumero = guichetNumero;
+        this.client = client;
+        this.guichet = guichet;
         this.statut = statut;
+        this.tresorerieList = tresorerieList;
     }
 
     public int getId() {
@@ -70,20 +70,20 @@ public class Ticket {
         this.date = date;
     }
 
-    public int getGuichetId() {
-        return guichetId;
+    public Client getClient() {
+        return client;
     }
 
-    public void setGuichetId(int guichetId) {
-        this.guichetId = guichetId;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
-    public Date getGuichetNumero() {
-        return guichetNumero;
+    public Guichet getGuichet() {
+        return guichet;
     }
 
-    public void setGuichetNumero(Date guichetNumero) {
-        this.guichetNumero = guichetNumero;
+    public void setGuichet(Guichet guichet) {
+        this.guichet = guichet;
     }
 
     public String getStatut() {
@@ -94,6 +94,14 @@ public class Ticket {
         this.statut = statut;
     }
 
+    public List<Tresorerie> getTresorerieList() {
+        return tresorerieList;
+    }
+
+    public void setTresorerieList(List<Tresorerie> tresorerieList) {
+        this.tresorerieList = tresorerieList;
+    }
+
     @Override
     public String toString() {
         return "Ticket{" +
@@ -101,9 +109,10 @@ public class Ticket {
                 ", uid=" + uid +
                 ", numeroTicket=" + numeroTicket +
                 ", date=" + date +
-                ", guichetId=" + guichetId +
-                ", guichetNumero=" + guichetNumero +
+                ", client=" + client +
+                ", guichet=" + guichet +
                 ", statut='" + statut + '\'' +
+                ", tresorerieList=" + tresorerieList +
                 '}';
     }
 }

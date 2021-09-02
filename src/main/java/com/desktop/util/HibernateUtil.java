@@ -27,18 +27,21 @@ public class HibernateUtil {
 
                 settings.put(Environment.SHOW_SQL, "true");
                 settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-                settings.put(Environment.HBM2DDL_AUTO, "create");
+                settings.put(Environment.HBM2DDL_AUTO, "update");
 
                 configuration.setProperties(settings);
 
+                configuration.addAnnotatedClass(Profile.class);
+                configuration.addAnnotatedClass(User.class);
                 configuration.addAnnotatedClass(Caisse.class);
+                configuration.addAnnotatedClass(Charge.class);
+                configuration.addAnnotatedClass(ModalitePayement.class);
+                configuration.addAnnotatedClass(TresorerieCategorie.class);
                 configuration.addAnnotatedClass(Client.class);
                 configuration.addAnnotatedClass(Employee.class);
                 configuration.addAnnotatedClass(Guichet.class);
-                configuration.addAnnotatedClass(Profile.class);
                 configuration.addAnnotatedClass(Ticket.class);
                 configuration.addAnnotatedClass(Tresorerie.class);
-                configuration.addAnnotatedClass(User.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();

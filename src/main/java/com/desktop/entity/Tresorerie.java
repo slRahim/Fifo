@@ -8,50 +8,52 @@ import java.sql.Date;
 public class Tresorerie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
-    private int id ;
-    @Column(
-            unique = true
-    )
-    private int uid ;
-    @Column
-    private Date date ;
-    @Column
-    private int mov ;
-    @Column
-    private int ticketId ;
-    @Column
-    private int clientId ;
-    @Column
-    private String clientNom ;
-    @Column
-    private int compteId ;
-    @Column
-    private int categorieId ;
-    @Column
-    private int chargeId ;
-    @Column
-    private int modaliteId ;
-    @Column
-    private String objet ;
-    @Column
-    private double montant ;
+    private int id;
+    @Column(unique = true)
+    private int uid;
+    private Date date;
+    private int mov;
+    @ManyToOne
+    @JoinColumn(name = "ticketId", nullable = true)
+    private Ticket ticket;
+    @ManyToOne
+    @JoinColumn(name = "clientId", nullable = true)
+    private Client client;
+    @ManyToOne
+    @JoinColumn(name = "caisseId", nullable = true)
+    private Caisse caisse;
+    @ManyToOne
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
+    @ManyToOne
+    @JoinColumn(name = "categorieId", nullable = false)
+    private TresorerieCategorie categorie;
+    @ManyToOne
+    @JoinColumn(name = "chargeId", nullable = true)
+    private Charge charge;
+    @ManyToOne
+    @JoinColumn(name = "modaliteId", nullable = false)
+    private ModalitePayement modalite;
+    private String numeroCarteCredit;
+    private String objet;
+    private double montant;
 
     public Tresorerie() {
     }
 
-    public Tresorerie(int id, int uid, Date date, int mov, int ticketId, int clientId, String clientNom, int compteId, int categorieId, int chargeId, int modaliteId, String objet, double montant) {
+    public Tresorerie(int id, int uid, Date date, int mov, Ticket ticket, Client client, Caisse caisse, User user, TresorerieCategorie categorie, Charge charge, ModalitePayement modalite, String numeroCarteCredit, String objet, double montant) {
         this.id = id;
         this.uid = uid;
         this.date = date;
         this.mov = mov;
-        this.ticketId = ticketId;
-        this.clientId = clientId;
-        this.clientNom = clientNom;
-        this.compteId = compteId;
-        this.categorieId = categorieId;
-        this.chargeId = chargeId;
-        this.modaliteId = modaliteId;
+        this.ticket = ticket;
+        this.client = client;
+        this.caisse = caisse;
+        this.user = user;
+        this.categorie = categorie;
+        this.charge = charge;
+        this.modalite = modalite;
+        this.numeroCarteCredit = numeroCarteCredit;
         this.objet = objet;
         this.montant = montant;
     }
@@ -88,60 +90,68 @@ public class Tresorerie {
         this.mov = mov;
     }
 
-    public int getTicketId() {
-        return ticketId;
+    public Ticket getTicket() {
+        return ticket;
     }
 
-    public void setTicketId(int ticketId) {
-        this.ticketId = ticketId;
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
     }
 
-    public int getClientId() {
-        return clientId;
+    public Client getClient() {
+        return client;
     }
 
-    public void setClientId(int clientId) {
-        this.clientId = clientId;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
-    public String getClientNom() {
-        return clientNom;
+    public Caisse getCaisse() {
+        return caisse;
     }
 
-    public void setClientNom(String clientNom) {
-        this.clientNom = clientNom;
+    public void setCaisse(Caisse caisse) {
+        this.caisse = caisse;
     }
 
-    public int getCompteId() {
-        return compteId;
+    public User getUser() {
+        return user;
     }
 
-    public void setCompteId(int compteId) {
-        this.compteId = compteId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getCategorieId() {
-        return categorieId;
+    public TresorerieCategorie getCategorie() {
+        return categorie;
     }
 
-    public void setCategorieId(int categorieId) {
-        this.categorieId = categorieId;
+    public void setCategorie(TresorerieCategorie categorie) {
+        this.categorie = categorie;
     }
 
-    public int getChargeId() {
-        return chargeId;
+    public Charge getCharge() {
+        return charge;
     }
 
-    public void setChargeId(int chargeId) {
-        this.chargeId = chargeId;
+    public void setCharge(Charge charge) {
+        this.charge = charge;
     }
 
-    public int getModaliteId() {
-        return modaliteId;
+    public ModalitePayement getModalite() {
+        return modalite;
     }
 
-    public void setModaliteId(int modaliteId) {
-        this.modaliteId = modaliteId;
+    public void setModalite(ModalitePayement modalite) {
+        this.modalite = modalite;
+    }
+
+    public String getNumeroCarteCredit() {
+        return numeroCarteCredit;
+    }
+
+    public void setNumeroCarteCredit(String numeroCarteCredit) {
+        this.numeroCarteCredit = numeroCarteCredit;
     }
 
     public String getObjet() {
@@ -167,13 +177,14 @@ public class Tresorerie {
                 ", uid=" + uid +
                 ", date=" + date +
                 ", mov=" + mov +
-                ", ticketId=" + ticketId +
-                ", clientId=" + clientId +
-                ", clientNom='" + clientNom + '\'' +
-                ", compteId=" + compteId +
-                ", categorieId=" + categorieId +
-                ", chargeId=" + chargeId +
-                ", modaliteId=" + modaliteId +
+                ", ticket=" + ticket +
+                ", client=" + client +
+                ", caisse=" + caisse +
+                ", user=" + user +
+                ", categorie=" + categorie +
+                ", charge=" + charge +
+                ", modalite=" + modalite +
+                ", numeroCarteCredit='" + numeroCarteCredit + '\'' +
                 ", objet='" + objet + '\'' +
                 ", montant=" + montant +
                 '}';
