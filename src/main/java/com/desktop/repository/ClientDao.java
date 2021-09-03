@@ -8,8 +8,5 @@ import java.util.Map;
 public interface ClientDao {
     Client getClient(Client client);
     List<Client> getAll(String searchInput , Map<String , Object> filter);
-    Client addClient(Client client);
-    Client editClient(Client client);
-    int dellClient(Client client);
 
 }

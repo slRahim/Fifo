@@ -1,9 +1,10 @@
 package com.desktop.repositoryImpl;
-
 import com.desktop.entity.TresorerieCategorie;
 import com.desktop.repository.DaoFactory;
 import com.desktop.repository.TresorerieCategorieDao;
+import org.hibernate.Session;
 
+import java.util.List;
 import java.util.Map;
 
 public class TresorerieCategorieDaoImpl implements TresorerieCategorieDao {
@@ -15,26 +16,54 @@ public class TresorerieCategorieDaoImpl implements TresorerieCategorieDao {
 
     @Override
     public TresorerieCategorie getTresorerieCategorie(TresorerieCategorie categorie) {
-        return null;
+        Session session = null;
+        TresorerieCategorie res = null;
+        try {
+            session = daoFactory.getConnection();
+            res = session.get(TresorerieCategorie.class, categorie.getId());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+
+        return res;
     }
 
     @Override
-    public TresorerieCategorie getAll(String searchInput, Map<String, Object> filter) {
-        return null;
+    public List<TresorerieCategorie> getAll(String searchInput, Map<String, Object> filter) {
+        Session session = null;
+        List<TresorerieCategorie> res = null;
+        try {
+            session = daoFactory.getConnection();
+            String query = "from TresorerieCategorie";
+
+            searchInput = (searchInput == null) ? "" : searchInput;
+//            query += "nom like '%"+searchInput+"%'" ;
+//            query += " or userName like '%"+searchInput+"%'";
+
+            if (filter != null) {
+//                query += (filter.get("crudCaisee") != null && filter.get("crudCaisee").equals(true))? " And crudCaisse = 1":"";
+//                query += (filter.get("crudCaisee") != null && filter.get("crudCaisee").equals(true))? " And crudCaisse = 1":"";
+//                query += (filter.get("crudCaisee") != null && filter.get("crudCaisee").equals(true))? " And crudCaisse = 1":"";
+//                query += (filter.get("crudCaisee") != null && filter.get("crudCaisee").equals(true))? " And crudCaisse = 1":"";
+//                query += (filter.get("crudCaisee") != null && filter.get("crudCaisee").equals(true))? " And crudCaisse = 1":"";
+
+            }
+            res = session.createQuery(query).list();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+
+        return res;
     }
 
-    @Override
-    public TresorerieCategorie addTresorerieCategorie(TresorerieCategorie categorie) {
-        return null;
-    }
-
-    @Override
-    public TresorerieCategorie editTresorerieCategorie(TresorerieCategorie categorie) {
-        return null;
-    }
-
-    @Override
-    public int dellTresorerieCategorie(TresorerieCategorie categorie) {
-        return 0;
-    }
 }

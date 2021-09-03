@@ -8,8 +8,5 @@ import java.util.Map;
 public interface TresorerieDao {
     Tresorerie getTresorerie(Tresorerie tresorerie);
     List<Tresorerie> getAll(String searchInput , Map<String , Object> filter);
-    Tresorerie addTresorerie(Tresorerie tresorerie);
-    Tresorerie editTresorerie(Tresorerie tresorerie);
-    int dellTresorerie(Tresorerie tresorerie);
 
 }

@@ -8,8 +8,5 @@ import java.util.Map;
 public interface UserDao {
     User getUser(User user);
     List<User> getAll(String searchInput , Map<String , Object> filter);
-    User addUser(User user);
-    User editUser(User user);
-    int dellUser(User User);
 
 }

@@ -4,7 +4,7 @@ package com.desktop.repositoryImpl;
 import com.desktop.entity.User;
 import com.desktop.repository.DaoFactory;
 import com.desktop.repository.UserDao;
-
+import org.hibernate.Session;
 import java.util.List;
 import java.util.Map;
 
@@ -17,34 +17,54 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUser(User user) {
-//        Session session = daoFactory.getConnection();
-//
-//        session.beginTransaction();
-//        List<User> users = session.createQuery("from User where username = '"+user.getUsername()+"' and password = '"+user.getPassword()+"'").list();
-//        session.getTransaction().commit();
-//
-//        System.out.println("from get user userdaoImpl "+id);
-        return null;
+        Session session = null;
+        User res = null;
+        try {
+            session = daoFactory.getConnection();
+            res = session.get(User.class , user.getId());
+
+        }catch (Exception e){
+          e.printStackTrace();
+        }finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+
+        return res;
     }
 
     @Override
     public List<User> getAll(String searchInput, Map<String, Object> filter) {
-        return null;
-    }
+        Session session = null;
+        List<User> res = null;
+        try {
+            session = daoFactory.getConnection();
+            String query = "from User where " ;
 
-    @Override
-    public User addUser(User user) {
-        return null;
-    }
+            searchInput = (searchInput == null) ? "" : searchInput ;
+            query += "nom like '%"+searchInput+"%'" ;
+            query += " or userName like '%"+searchInput+"%'";
 
-    @Override
-    public User editUser(User user) {
-        return null;
-    }
+            if(filter != null){
+                query += (filter.get("crudCaisee") != null && filter.get("crudCaisee").equals(true))? " And crudCaisse = 1":"";
+//                query += (filter.get("crudCaisee") != null && filter.get("crudCaisee").equals(true))? " And crudCaisse = 1":"";
+//                query += (filter.get("crudCaisee") != null && filter.get("crudCaisee").equals(true))? " And crudCaisse = 1":"";
+//                query += (filter.get("crudCaisee") != null && filter.get("crudCaisee").equals(true))? " And crudCaisse = 1":"";
+//                query += (filter.get("crudCaisee") != null && filter.get("crudCaisee").equals(true))? " And crudCaisse = 1":"";
 
-    @Override
-    public int dellUser(User User) {
-        return 0;
+            }
+            res = session.createQuery(query).list();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+        }
+
+        return res;
     }
 
 

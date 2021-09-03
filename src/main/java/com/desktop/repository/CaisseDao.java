@@ -8,8 +8,5 @@ import java.util.Map;
 public interface CaisseDao {
     Caisse getCaisse(Caisse caisse);
     List<Caisse> getAll(String searchInput , Map<String , Object> filter);
-    Caisse addCaisse(Caisse caisse);
-    Caisse editCaisse(Caisse caisse);
-    int dellCaisse(Caisse caisse);
 
 }

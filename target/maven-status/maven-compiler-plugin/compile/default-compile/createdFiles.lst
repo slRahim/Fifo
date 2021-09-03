@@ -1,5 +1,4 @@
 com\desktop\entity\Tresorerie.class
-com\desktop\entity\Caisse.class
 com\desktop\repositoryImpl\TresorerieDaoImpl.class
 com\desktop\entity\Profile.class
 com\desktop\repository\ModalitePaymentDao.class
@@ -8,7 +7,6 @@ com\desktop\repository\CaisseDao.class
 com\desktop\repository\TresorerieDao.class
 com\desktop\repositoryImpl\TresorerieCategorieDaoImpl.class
 com\desktop\entity\ModalitePayement.class
-com\desktop\entity\User.class
 com\desktop\repositoryImpl\ClientDaoImpl.class
 com\desktop\stage\HomeScreen.class
 com\desktop\repository\ClientDao.class
@@ -30,7 +28,6 @@ com\desktop\repository\UserDao.class
 com\desktop\entity\Employee.class
 com\desktop\repository\ProfileDao.class
 com\desktop\entity\Ticket.class
-com\desktop\entity\TresorerieCategorie.class
 com\desktop\controller\PrimaryController.class
 com\desktop\repository\TicketDao.class
 com\desktop\entity\Charge.class
